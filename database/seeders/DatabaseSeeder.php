@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Question;
+use App\Models\Poll;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +19,20 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'a@a',
+            'password' => 'asdasdasd',
+        ]);
+        Poll::factory()->create([
+            'name' => 'Programadoreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);
+        Question::factory()->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);
+        Question::factory()->create([
+            'question' => 'Ze gustatzen zaizu gehiago Frontend ala Backend?',
+            'poll_id' => 1,
         ]);
     }
 }
