@@ -13,14 +13,28 @@
                         <h1>{{ $poll->name }} - {{ $poll->date }}</h1>
                         <ul>
                             @foreach ($poll->question as $question)
-                                <li>- {{ $question->question }}</li>
+                                <li>- {{ $question->question }} </li>
+                                <a href="{{ route('questions.edit', $question) }}"> Aldatu galdera</a>
+                                <form method="POST" action="{{ route('questions.destroy', $question) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button>Ezabatu galdera</button>
+                                </form>
                             @endforeach
                         </ul>
-                        <br><br>
-                        <a href="{{ route('questions.create') }}">Sortu galdera berria</a>
+                        <a href="{{ route('questions.create', $poll) }}">Sortu galdera berria</a>
+                        <form method="POST" action="{{ route('polls.destroy', $poll) }}">
+                            @csrf
+                            @method('delete')
+                            <button>Ezabatu inkesta</button>
+                        </form>
+                        <a href="{{ route('polls.edit', $poll) }}">Aldatu inkesta</a>
+                        <br>
+                        <br>
                     @endforeach
-                    <br><br>
-                    <a href="{{ route('polls.create') }}">Sortu inkesta berria</a>
+                    <br>
+                    <a href="{{ route('polls.create') }}">Sortu inkesta berria</a><br>
+                    <a href="{{ route('polls.trash') }}">Zaborra</a>
                 </div>
             </div>
         </div>

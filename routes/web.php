@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PollController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,9 +19,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::resource('polls', PollController::class)
-    ->only(['index', 'store', 'create'])
+    ->only(['index', 'store', 'create', 'destroy', 'edit', 'update'])
     ->middleware(['auth','verified']);
-Route::resource('questions', QuestionController::class)
-    ->only(['index', 'store', 'create'])
-    ->middleware(['auth','verified']);
+Route::patch('polls/{poll}/restore', [PollController::class, 'restore'])->name('polls.restore');
+Route::get('polls/trash', [PollController::class, 'trash'])->name('polls.trash');
+
+Route::get('questions/{poll}/create', [QuestionController::class, 'create'])->name('questions.create');
+Route::post('questions/{poll}', [QuestionController::class, 'store'])->name('questions.store');
+Route::get('questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
+Route::patch('questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
+Route::delete('questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
 require __DIR__.'/auth.php';
