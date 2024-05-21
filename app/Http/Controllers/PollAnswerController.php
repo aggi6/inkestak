@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Poll;
+use Illuminate\View\View;
 use App\Models\PollAnswer;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,10 @@ class PollAnswerController extends Controller
      */
     public function index():View
     {
-        //
+        $answers = PollAnswer::get();
+        return view('answers.index', [
+            'answers' => $answers,
+        ]);
     }
 
     /**
@@ -20,7 +25,10 @@ class PollAnswerController extends Controller
      */
     public function create()
     {
-        //
+        $polls = Poll::with('question')->get();
+        return view('answers.create', [
+            'polls' => $polls,
+        ]);
     }
 
     /**
@@ -28,7 +36,14 @@ class PollAnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'poll_id' => 'required|exists:polls,id',
+            'question_id' => 'required|exists:questions,id',
+            'polled_id' => 'required|exists:polleds,id',
+            'answer' => 'required|string',
+        ]);
+        PollAnswer::create($validatedData);
+        return redirect(route('answers.index'));
     }
 
     /**

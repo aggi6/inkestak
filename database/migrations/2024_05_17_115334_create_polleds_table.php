@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('polleds', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
-            $table->date('birthDate');
-            $table->string('postalCode');
-            $table->string('genre');
+            $table->email('email');
+            $table->date('birthDate')->nullable();
+            $table->string('postalCode', 5)->nullable();
+            $table->string('genre', 20)->nullable();
             $table->timestamps();
         });
     }

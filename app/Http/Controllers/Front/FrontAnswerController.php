@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Controllers\Front;
+
+use App\Models\Poll;
+use App\Models\Polled;
+use App\Models\Question;
+use Illuminate\View\View;
+use App\Models\PollAnswer;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+
+class FrontAnswerController extends Controller
+{
+    public function polled():View{
+        return view('front.polled');
+    }
+    public function polledCreate(Request $request):RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'string|max:255',
+            'email' => 'email',
+            'jaiotzeData' => 'date|nullable',
+            'postalCode' => 'string|max:5|nullable',
+            'genre' => 'string|max:20|nullable',
+        ]);
+        $polled = Polled::create($validated);
+        return redirect(route('front.polls', $polled));
+    }
+    public function polls(Polled $polled):View{
+        return view('front.polls',[
+            'polls' => Poll::with('question')->get(),
+            'polled' => $polled,  
+        ]);
+    }
+    public function create(Polled $polled, Poll $poll):View{
+        return view('front.create', [
+            'poll'=>$poll,
+            'polled' =>$polled,
+        ]);
+    }
+    public function store(Request $request, $polled, $poll, $question):redirectResponse{
+        $validated = $request->validate([
+            'answer' => 'required|string',
+        ]);
+        $validated['poll_id'] = $poll;
+        $validated['polled_id'] = $polled;
+        $validated['question_id'] = $question;
+        PollAnswer::create($validated);
+        return redirect(route('answers.index'));
+    }
+}

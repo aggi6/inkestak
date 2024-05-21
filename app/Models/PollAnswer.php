@@ -4,24 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\belongsTo;
 
 
 class pollAnswer extends Model
 {
     use HasFactory;
+    protected $table = 'pollAnswers';
     protected $fillable = [
         'poll_id',
         'polled_id',
         'question_id',
+        'answer'
     ];
     public function question(){
-        return $this->hasMany(Question::class);
+        return $this->belongsTo(Question::class, 'question_id');
     }
     public function poll(){
-        return $this->hasMany(Poll::class);
+        return $this->belongsTo(Poll::class, 'poll_id');
     }
     public function polled(){
-        return $this->hasMany(Polled::Class);
+        return $this->belongsTo(Polled::Class, 'polled_id');
     }
 }

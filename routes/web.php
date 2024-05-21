@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PollController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\PollAnswerController;
+use App\Http\Controllers\Front\FrontAnswerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,5 +31,15 @@ Route::post('questions/{poll}', [QuestionController::class, 'store'])->name('que
 Route::get('questions/{question}/edit', [QuestionController::class, 'edit'])->name('questions.edit');
 Route::patch('questions/{question}', [QuestionController::class, 'update'])->name('questions.update');
 Route::delete('questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
+
+Route::resource('answers', PollAnswerController::class)
+    ->only(['index', 'create', 'store'])
+    ->middleware(['auth', 'verified']);
+
+Route::get('front/polled', [FrontAnswerController::class, 'polled'])->name('front.polled');
+Route::get('front/{polled}/polls', [FrontAnswerController::class, 'polls'])->name('front.polls');
+Route::get('front/{polled}/{poll}/create', [FrontAnswerController::class, 'create'])->name('front.create');
+Route::post('front/polledCreate', [FrontAnswerController::class, 'polledCreate'])->name('front.polledCreate');
+Route::post('front/store/{polled}/{poll}/{question}', [FrontAnswerController::class, 'store'])->name('front.store');
 
 require __DIR__.'/auth.php';

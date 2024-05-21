@@ -18,6 +18,12 @@
                     <x-nav-link :href="route('polls.index')" :active="request()->routeIs('polls.index')">
                         {{ __('Inkestak') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('answers.index')" :active="request()->routeIs('answers.index')">
+                        {{ __('Erantzunak') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('front.polled')" :active="request()->routeIs('front.polled')">
+                        {{ __('Inkestak egin') }}
+                    </x-nav-link>
                 </div>
             </div>
 
