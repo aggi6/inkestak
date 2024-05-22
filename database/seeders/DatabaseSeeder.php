@@ -16,17 +16,69 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'a@a',
-            'password' => 'asdasdasd',
-        ]);
+        
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'a@a',
+        //     'password' => 'asdasdasd',
+        // ]);
         Poll::factory()->create([
             'name' => 'Programadoreentzat inkesta',
             'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
+        ]);Poll::factory(100)->create([
+            'name' => 'Programadoasdreentzat inkesta',
+            'date' => '2024-05-16',
         ]);
-        Question::factory()->create([
+        Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);
+        Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);Question::factory(100)->create([
+            'question' => 'Ze programazio lengoaia erabiltzen duzu?',
+            'poll_id' => 1,
+        ]);Question::factory(100)->create([
             'question' => 'Ze programazio lengoaia erabiltzen duzu?',
             'poll_id' => 1,
         ]);

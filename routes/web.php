@@ -40,6 +40,6 @@ Route::get('front/polled', [FrontAnswerController::class, 'polled'])->name('fron
 Route::get('front/{polled}/polls', [FrontAnswerController::class, 'polls'])->name('front.polls');
 Route::get('front/{polled}/{poll}/create', [FrontAnswerController::class, 'create'])->name('front.create');
 Route::post('front/polledCreate', [FrontAnswerController::class, 'polledCreate'])->name('front.polledCreate');
-Route::post('front/store/{polled}/{poll}/{question}', [FrontAnswerController::class, 'store'])->name('front.store');
+Route::post('front/store/{polled}/{poll}', [FrontAnswerController::class, 'store'])->name('front.store');
 
 require __DIR__.'/auth.php';

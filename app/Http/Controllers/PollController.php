@@ -16,7 +16,7 @@ class PollController extends Controller
     public function index():View
     {
         return view('polls.index', [
-            'polls' => Poll::with('question')->get(),
+            'polls' => Poll::get(),
         ]);
     }
 

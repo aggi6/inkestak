@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('polleds', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->email('email');
+            $table->string('email')->nullable();
             $table->date('birthDate')->nullable();
             $table->string('postalCode', 5)->nullable();
             $table->string('genre', 20)->nullable();

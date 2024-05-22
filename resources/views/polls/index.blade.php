@@ -10,26 +10,28 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @foreach ($polls as $poll)
-                        <h1>{{ $poll->name }} - {{ $poll->date }}</h1>
+                        <h1 class="text-xl font-semibold underline">{{ $poll->name }} - {{ $poll->date }}</h1>
                         <ul>
                             @foreach ($poll->question as $question)
-                                <li>- {{ $question->question }} </li>
-                                <a href="{{ route('questions.edit', $question) }}"> Aldatu galdera</a>
+                                <li class="text-2xl">- {{ $question->question }} </li>
+                                <li> {{ $question->poll->id }}</li>
+                                <a href="{{ route('questions.edit', $question) }}"><font color="green"> Aldatu galdera</font></a>
                                 <form method="POST" action="{{ route('questions.destroy', $question) }}">
                                     @csrf
                                     @method('delete')
-                                    <button>Ezabatu galdera</button>
+                                    <button><font color="red">Ezabatu galdera</font></button>
                                 </form>
                             @endforeach
                         </ul>
-                        <a href="{{ route('questions.create', $poll) }}">Sortu galdera berria</a>
+                        <br>
+                        <a href="{{ route('questions.create', $poll) }}"><font color="green">Sortu galdera berria</font></a>
                         <form method="POST" action="{{ route('polls.destroy', $poll) }}">
                             @csrf
                             @method('delete')
-                            <button>Ezabatu inkesta</button>
+                            <button><font color="red">Ezabatu inkesta</font></button>
                         </form>
-                        <a href="{{ route('polls.edit', $poll) }}">Aldatu inkesta</a>
-                        <br>
+                        <a href="{{ route('polls.edit', $poll) }}"><font color="green">Aldatu inkesta</font></a>
+                        <h1>__________________________________________________</h1>
                         <br>
                     @endforeach
                     <br>

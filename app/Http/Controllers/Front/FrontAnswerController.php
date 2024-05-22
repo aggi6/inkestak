@@ -20,7 +20,7 @@ class FrontAnswerController extends Controller
     {
         $validated = $request->validate([
             'name' => 'string|max:255',
-            'email' => 'email',
+            'email' => 'email|nullable',
             'jaiotzeData' => 'date|nullable',
             'postalCode' => 'string|max:5|nullable',
             'genre' => 'string|max:20|nullable',
@@ -40,14 +40,18 @@ class FrontAnswerController extends Controller
             'polled' =>$polled,
         ]);
     }
-    public function store(Request $request, $polled, $poll, $question):redirectResponse{
+    public function store(Request $request, $polled, $poll):redirectResponse{
         $validated = $request->validate([
-            'answer' => 'required|string',
+            'answer' => 'required|array',
+            'answer.*' => 'required|string',
         ]);
-        $validated['poll_id'] = $poll;
-        $validated['polled_id'] = $polled;
-        $validated['question_id'] = $question;
-        PollAnswer::create($validated);
+        foreach ($validated['answer'] as $questionId => $answer){
+            $validated['poll_id'] = $poll;
+            $validated['polled_id'] = $polled;
+            $validated['question_id'] = $questionId;
+            $validated['answer'] = $answer;
+            PollAnswer::create($validated);            
+        }
         return redirect(route('answers.index'));
     }
 }

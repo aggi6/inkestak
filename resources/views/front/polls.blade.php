@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     @foreach ($polls as $poll)
-                        <a href="{{ route('front.create', ['polled'=>$polled, 'poll' => $poll]) }}">{{ $poll->name }}</a>
+                        <a class="no-underline hover:underline" href="{{ route('front.create', ['polled'=>$polled, 'poll' => $poll]) }}">{{ $poll->name }}</a><br>
                     @endforeach
                 </div>
             </div>
