@@ -13,10 +13,10 @@ class PollController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index():View
+    public function index(): View
     {
         return view('polls.index', [
-            'polls' => Poll::get(),
+            'polls' => Poll::with('question')->get(),
         ]);
     }
 

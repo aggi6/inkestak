@@ -14,7 +14,7 @@
                         <ul>
                             @foreach ($poll->question as $question)
                                 <li class="text-2xl">- {{ $question->question }} </li>
-                                <li> {{ $question->poll->id }}</li>
+                                <li> {{ $poll->id }}</li>
                                 <a href="{{ route('questions.edit', $question) }}"><font color="green"> Aldatu galdera</font></a>
                                 <form method="POST" action="{{ route('questions.destroy', $question) }}">
                                     @csrf

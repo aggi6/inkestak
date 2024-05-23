@@ -88,28 +88,26 @@ class UpdateQuestionTest extends TestCase
         $response->assertStatus(302);
         $response->assertInvalid('question');
     }
-    public function test_storeQuestion_max255(): void
+    public function test_updateQuestion_max255(): void
     {
        
-        $poll = Poll::factory()->create();
+        $question = Question::factory()->create();
 
-        $response = $this->from(route('questions.create', ['poll'=>$poll]))
-        ->post(route('questions.store', ['poll'=>$poll]), ['question' => Str::random(256)]);
+        $response = $this->from(route('questions.edit', ['question'=>$question]))
+        ->post(route('questions.update', ['question'=>$question]), ['question' => Str::random(256)]);
 
         $response->assertStatus(302);
         $response->assertInvalid('question');
-        $response->assertRedirect(route('questions.create', ['poll'=>$poll]));
+        $response->assertRedirect(route('questions.edit', ['question'=>$question]));
     }
-    public function test_storeQuestion_success(): void
+    public function test_updateQuestion_success(): void
     {
-        $poll = Poll::factory()->create();
-        $question = Question::factory()->make();
-
-        $questionCount = Question::count();
+        $question = Question::factory()->create();
         //assertDatabaseMissing
 
-        $response = $this->from(route('questions.create', $poll))
-        ->post(route('questions.store', ['poll'=>$poll]), $question->toArray());
+        $expectedQuestion = $question->question . Str::random(16);
+        $response = $this->from(route('questions.edit', ['question'=>$question]))
+    ->patch(route('questions.update', ['question'=>$question]),['question' => $expectedQuestion]+$question->toArray());
 
         $response->assertStatus(302);
 
@@ -117,10 +115,6 @@ class UpdateQuestionTest extends TestCase
 
         $response->assertRedirect(route('polls.index'));
 
-        $this->assertEquals($questionCount + 1, Question::count());
-
-        $lastQuestion = Question::latest()->first();
-
-        $this->assertEquals($question->question, $lastQuestion->question);
+        $this->assertDatabaseHas('questions', ['id'=>$question->id, 'question'=>$expectedQuestion]);
     }
 }

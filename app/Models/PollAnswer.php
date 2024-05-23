@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\belongsTo;
 
 
-class pollAnswer extends Model
+class PollAnswer extends Model
 {
     use HasFactory;
     protected $table = 'pollAnswers';
