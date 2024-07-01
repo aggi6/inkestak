@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PollController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PollAnswerController;
+use App\Http\Controllers\PollDataTableController;
 use App\Http\Controllers\Front\FrontAnswerController;
 
 Route::get('/', function () {
@@ -41,5 +43,7 @@ Route::get('front/{polled}/polls', [FrontAnswerController::class, 'polls'])->nam
 Route::get('front/{polled}/{poll}/create', [FrontAnswerController::class, 'create'])->name('front.create');
 Route::post('front/polledCreate', [FrontAnswerController::class, 'polledCreate'])->name('front.polledCreate');
 Route::post('front/store/{polled}/{poll}', [FrontAnswerController::class, 'store'])->name('front.store');
+Route::get('users', [UserController::class, 'index'])->name('users');
+Route::get('pollDataTable', [PollDataTableController::class, 'index'])->name('pollDataTable');
 
 require __DIR__.'/auth.php';

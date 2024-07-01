@@ -24,6 +24,12 @@
                     <x-nav-link :href="route('front.polled')" :active="request()->routeIs('front.polled')">
                         {{ __('Inkestak egin') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('pollDataTable')" :active="request()->routeIs('pollDataTable')">
+                        {{ __('pollTable') }}
+                    </x-nav-link>
                 </div>
             </div>
 
