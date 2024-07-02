@@ -12,7 +12,9 @@ use App\Http\Controllers\Front\FrontAnswerController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/ua', function () {
+    return view('ua');
+});
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
