@@ -11,12 +11,17 @@ class Question extends Model
     use HasFactory;
     protected $fillable = [
         'question',
-        'poll_id'
+        'poll_id',
+        'type',
     ];
     public function poll(){
         return $this->belongsTo(Poll::class);
     }
     public function pollAnswer(){
         return $this->belongsTo(PollAnswer::class);
+    }
+    public function option(){
+        return $this->hasMany(QuestionOption::class);
+
     }
 }

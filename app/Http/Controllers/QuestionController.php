@@ -6,8 +6,13 @@ use App\Models\Poll;
 use App\Models\Question;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Models\QuestionOption;
+use App\Http\Classes\QuestionType;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\QuestionRequest;
+use App\Http\Requests\QuestionOptionRequest;
 
 class QuestionController extends Controller
 {
@@ -22,7 +27,7 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Poll $poll):View
+    public function create(Poll $poll): View
     {
         return view('questions.create', [
             'poll' => $poll,
@@ -32,14 +37,36 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Poll $poll): RedirectResponse
+    public function store(QuestionRequest $request, QuestionOptionRequest $optionRequest, Poll $poll): RedirectResponse
     {
-        $validated = $request->validate([
-            'question' => 'required|string|max:255',
-        ]);
-        $validated['poll_id'] = $poll->id;
-        Question::create($validated);
-        return redirect(route('polls.index'));
+        DB::beginTransaction();
+
+        try {
+            $validatedQuestion = $request->validated();
+
+            $validatedQuestion['poll_id'] = $poll->id;
+
+            $question = Question::create($validatedQuestion);
+
+            if ($question->type == QuestionType::CLOSE) {
+                $validatedOptionQuestion = $optionRequest->validated();
+    
+                foreach ($validatedOptionQuestion['options'] as $option) {
+                    QuestionOption::create([
+                        'option' => $option,
+                        'question_id' => $question->id
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return redirect(route('polls.index'));
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            return back()->withInput();
+        }
     }
 
     /**
@@ -53,7 +80,7 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Question $question):View
+    public function edit(Question $question): View
     {
         return view('questions.edit', [
             'question' => $question,
@@ -68,7 +95,7 @@ class QuestionController extends Controller
         $validated = $request->validate([
             'question' => 'required|string|max:255',
         ]);
-        
+
         $question->update($validated);
         return redirect(route('polls.index'));
     }

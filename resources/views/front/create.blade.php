@@ -7,14 +7,27 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form method="POST" action="{{ route('front.store', ['polled' => $polled->id, 'poll' => $poll->id]) }}">                        
-                    @csrf
-                    @foreach ( $poll->question as $question )
-                        <p>{{ $question->question }}</p>
-                        <textarea name="answer[{{ $question->id }}]" class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('answer' . $question->id) }}</textarea>
-                        <x-input-error :messages="$errors->get('answer' . $question->id)" class="mt-2" /> 
-                    @endforeach 
-                    <x-primary-button class="mt-4">{{ __('Bidali') }}</x-primary-button>
+                    <form method="POST"
+                        action="{{ route('front.store', ['polled' => $polled->id, 'poll' => $poll->id]) }}">
+                        @csrf
+                        @foreach ($poll->question as $question) 
+                            <p>{{ $question->question }}</p>
+                            @if ($question->type == App\Http\Classes\QuestionType::OPEN)
+                                <textarea name="answer[{{ $question->id }}]"
+                                    class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('answer.' . $question->id) }}</textarea>
+                                <x-input-error :messages="$errors->get('answer.' . $question->id)" class="mt-2" />
+                            @else 
+                                @foreach ($question->option as $option)
+                                    <label>
+                                        <input type="radio" name="answer[{{ $question->id }}]" value="{{ $option->option }}">
+                                        {{ $option->option }}
+                                    </label>
+                                    <br>
+                                @endforeach
+                                <x-input-error :messages="$errors->get('answer.' . $question->id)" class="mt-2" />
+                            @endif
+                        @endforeach
+                        <x-primary-button class="mt-4">{{ __('Bidali') }}</x-primary-button>
                     </form>
                 </div>
             </div>

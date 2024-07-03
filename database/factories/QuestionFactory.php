@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Poll;
+use App\Http\Classes\QuestionType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class QuestionFactory extends Factory
         return [
             'question'=>$this->faker->sentence(5),
             'poll_id'=> Poll::factory(),
+            'type' => $this->faker->randomElement([QuestionType::OPEN, QuestionType::CLOSE]),
         ];
     }
 }

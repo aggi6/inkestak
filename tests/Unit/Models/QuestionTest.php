@@ -15,7 +15,7 @@ class QuestionTest extends TestCase
     use DatabaseMigrations;
     
     /**
-     * Galderaren badu inkesta
+     * Galderak badu inkesta
      */
     public function test_question_belongsTo_poll(): void
     {
