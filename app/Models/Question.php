@@ -20,7 +20,7 @@ class Question extends Model
     public function pollAnswer(){
         return $this->belongsTo(PollAnswer::class);
     }
-    public function option(){
+    public function options(){
         return $this->hasMany(QuestionOption::class);
 
     }

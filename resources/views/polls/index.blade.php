@@ -13,7 +13,15 @@
                         <h1 class="text-xl font-semibold underline">{{ $poll->name }} - {{ $poll->date }}</h1>
                         <ul>
                             @foreach ($poll->question as $question)
-                                <li class="text-2xl">- {{ $question->question }} </li>
+                                @if ($question->type === App\Http\Classes\QuestionType::CLOSE)
+                                    <li class="text-2xl">- {{ $question->question }} -->
+                                        @foreach ($question->options as $option)
+                                            - {{ $option->option }}
+                                        @endforeach
+                                    </li>
+                                @else
+                                    <li class="text-2xl">- {{ $question->question }} </li>
+                                @endif
                                 <a href="{{ route('questions.edit', $question) }}">
                                     <font color="green"> Aldatu galdera</font>
                                 </a>

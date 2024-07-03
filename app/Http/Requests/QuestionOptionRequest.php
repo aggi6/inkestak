@@ -18,7 +18,7 @@ class QuestionOptionRequest extends FormRequest
         $questionType = $this->request->get('type');
 
         $rules = [
-            'options' => 'nullable'
+            'options' => 'missing'
         ];
 
         if ($questionType == QuestionType::CLOSE) {
@@ -30,4 +30,6 @@ class QuestionOptionRequest extends FormRequest
         
         return $rules;
     }
+
+    
 }

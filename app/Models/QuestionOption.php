@@ -12,7 +12,7 @@ class QuestionOption extends Model
         'question_id',
         'option'
     ];
-    private function question(){
+    public function question(){
         return $this->belongsTo(Question::class);
     }
 }
