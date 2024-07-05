@@ -24,6 +24,6 @@ class PollAnswer extends Model
         return $this->belongsTo(Poll::class, 'poll_id');
     }
     public function polled(){
-        return $this->belongsTo(Polled::Class, 'polled_id');
+        return $this->belongsTo(Polled::class, 'polled_id');
     }
 }

@@ -17,7 +17,7 @@
                                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">{{ old('answer.' . $question->id) }}</textarea>
                                 <x-input-error :messages="$errors->get('answer.' . $question->id)" class="mt-2" />
                             @else 
-                                @foreach ($question->option as $option)
+                                @foreach ($question->options as $option)
                                     <label>
                                         <input type="radio" name="answer[{{ $question->id }}]" value="{{ $option->option }}">
                                         {{ $option->option }}

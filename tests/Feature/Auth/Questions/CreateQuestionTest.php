@@ -64,13 +64,13 @@ class CreateQuestionTest extends TestCase
         $poll = Poll::factory()->create();
 
         $response = $this->post(route('questions.store', ['poll' => $poll]), ['question' => null]);
-
+        
         $response->assertStatus(302);
 
         $response->assertInvalid('question');
     }
 
-    public function test_storeQuestion_withou(): void
+    public function test_storeQuestion_without(): void
     {
         $poll = Poll::factory()->create();
 
@@ -101,29 +101,6 @@ class CreateQuestionTest extends TestCase
         $response->assertInvalid('question');
         $response->assertRedirect(route('questions.create', ['poll' => $poll]));
     }
-    public function test_storeQuestion_success(): void
-    {
-        $poll = Poll::factory()->create();
-        $question = Question::factory()->make();
-
-        $questionCount = Question::count();
-        //assertDatabaseMissing
-
-        $response = $this->from(route('questions.create', $poll))
-            ->post(route('questions.store', ['poll' => $poll]), $question->toArray());
-
-        $response->assertStatus(302);
-
-        $response->assertValid();
-
-        $response->assertRedirect(route('polls.index'));
-
-        $this->assertEquals($questionCount + 1, Question::count());
-
-        $lastQuestion = Question::latest()->first();
-
-        $this->assertEquals($question->question, $lastQuestion->question);
-    }
     public function test_storeQuestion_type_must_be_open_or_close(): void
     {
 
@@ -139,12 +116,12 @@ class CreateQuestionTest extends TestCase
     public static function questionType_dataProvider(): array
     {
         return array(
-            array(QuestionType::OPEN),
-            array(QuestionType::CLOSE),
+            array(QuestionType::OPEN, []),
+            array(QuestionType::CLOSE, ['options' => ['asd']]),
         );
     }
     #[DataProvider('questionType_dataProvider')]
-    public function test_storeQuestion_success_when_type_open_or_close($questionType): void
+    public function test_storeQuestion_success_when_type_open_or_close($questionType, $options): void
     {
         $poll = Poll::factory()->create();
         $question = Question::factory(['type' => $questionType])->make();
@@ -153,7 +130,7 @@ class CreateQuestionTest extends TestCase
         //assertDatabaseMissing
 
         $response = $this->from(route('questions.create', $poll))
-            ->post(route('questions.store', ['poll' => $poll]), $question->toArray());
+            ->post(route('questions.store', ['poll' => $poll]), $options + $question->toArray());
 
         $response->assertStatus(302);
 

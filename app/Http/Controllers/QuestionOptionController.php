@@ -28,14 +28,9 @@ class QuestionOptionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Poll $poll): RedirectResponse
+    public function store(Request $request)
     {
-        $validated = $request->validate([
-            'option' => 'required|string|max50'
-        ]);
-        $validated['question_id'] = $poll->id;
-        QuestionOption::create($validated);
-        return redirect(route('polls.index'));
+        //
     }
 
     /**

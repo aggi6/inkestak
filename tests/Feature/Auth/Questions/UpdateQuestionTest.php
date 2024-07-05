@@ -63,8 +63,8 @@ class UpdateQuestionTest extends TestCase
     {
         $question = Question::factory()->create();
 
-        $response = $this->post(route('questions.update', ['question'=>$question]), ['question' => null]);
-
+        $response = $this->patch(route('questions.update', ['question'=>$question]), ['question' => null]);
+        
         $response->assertStatus(302);
 
         $response->assertInvalid('question');
@@ -73,7 +73,7 @@ class UpdateQuestionTest extends TestCase
     {
         $question = Question::factory()->create();
 
-        $response = $this->post(route('questions.update', ['question'=>$question]));
+        $response = $this->patch(route('questions.update', ['question'=>$question]));
 
         $response->assertStatus(302);
 
@@ -83,7 +83,7 @@ class UpdateQuestionTest extends TestCase
     {
         $question = Question::factory()->create();
 
-        $response = $this->post(route('questions.update', ['question'=>$question]), ['question' => [1]]);
+        $response = $this->patch(route('questions.update', ['question'=>$question]), ['question' => [1]]);
 
         $response->assertStatus(302);
         $response->assertInvalid('question');
@@ -94,7 +94,7 @@ class UpdateQuestionTest extends TestCase
         $question = Question::factory()->create();
 
         $response = $this->from(route('questions.edit', ['question'=>$question]))
-        ->post(route('questions.update', ['question'=>$question]), ['question' => Str::random(256)]);
+        ->patch(route('questions.update', ['question'=>$question]), ['question' => Str::random(256)]);
 
         $response->assertStatus(302);
         $response->assertInvalid('question');

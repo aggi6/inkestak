@@ -15,10 +15,9 @@ class QuestionOptionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $questionType = $this->request->get('type');
-
+        $questionType = $this->input('type');
         $rules = [
-            'options' => 'missing'
+            'options' => 'missing',
         ];
 
         if ($questionType == QuestionType::CLOSE) {
@@ -27,7 +26,6 @@ class QuestionOptionRequest extends FormRequest
                 'options.*' => 'required|string|max:50',
             ];
         }
-        
         return $rules;
     }
 
