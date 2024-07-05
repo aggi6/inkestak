@@ -23,7 +23,7 @@ class PollController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create():View
+    public function create(): View
     {
         return view('polls.create');
     }
@@ -35,7 +35,7 @@ class PollController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'date' => 'date|date_format:Y-m-d',
+            'date' => 'nullable|date|date_format:Y-m-d',
         ]);
         Poll::create($validated);
         return redirect(route('polls.index'));
@@ -64,28 +64,34 @@ class PollController extends Controller
      */
     public function update(Request $request, Poll $poll)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'date' => 'nullable|date|date_format:Y-m-d', 
+        ]);
+        $poll->update($validated);
+        return redirect(route('polls.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Poll $poll):RedirectResponse
+    public function destroy(Poll $poll): RedirectResponse
     {
         $poll->delete();
         return redirect(route('polls.index'));
     }
-    
-    public function restore($poll):RedirectResponse
+
+    public function restore($poll): RedirectResponse
     {
         $pol = Poll::withTrashed()->findOrFail($poll);
         $pol->restore();
         return redirect(route('polls.index'));
     }
 
-    public function trash(): View{
+    public function trash(): View
+    {
         $polls = Poll::onlyTrashed()->get();
-        return view('polls.trash',[
+        return view('polls.trash', [
             'polls' => $polls,
         ]);
     }

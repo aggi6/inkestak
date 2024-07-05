@@ -27,8 +27,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('polls', PollController::class)
     ->only(['index', 'store', 'create', 'destroy', 'edit', 'update'])
     ->middleware(['auth','verified']);
-Route::patch('polls/{poll}/restore', [PollController::class, 'restore'])->name('polls.restore');
-Route::get('polls/trash', [PollController::class, 'trash'])->name('polls.trash');
+Route::patch('polls/{poll}/restore', [PollController::class, 'restore'])->name('polls.restore')->middleware(['auth', 'verified']);
+Route::get('polls/trash', [PollController::class, 'trash'])->name('polls.trash')->middleware(['auth','verified']);
 
 Route::get('questions/{poll}/create', [QuestionController::class, 'create'])->name('questions.create');
 Route::post('questions/{poll}', [QuestionController::class, 'store'])->name('questions.store');
