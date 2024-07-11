@@ -40,11 +40,12 @@ Route::resource('answers', PollAnswerController::class)
     ->only(['index', 'create', 'store'])
     ->middleware(['auth', 'verified']);
 
-Route::get('front/polled', [FrontAnswerController::class, 'polled'])->name('front.polled');
-Route::get('front/{polled}/polls', [FrontAnswerController::class, 'polls'])->name('front.polls');
-Route::get('front/{polled}/{poll}/create', [FrontAnswerController::class, 'create'])->name('front.create');
-Route::post('front/polledCreate', [FrontAnswerController::class, 'polledCreate'])->name('front.polledCreate');
-Route::post('front/store/{polled}/{poll}', [FrontAnswerController::class, 'store'])->name('front.store');
+Route::get('front/polled', [FrontAnswerController::class, 'polled'])->name('front.polled')->middleware(['auth','verified']);
+Route::get('front/{polled}/polls', [FrontAnswerController::class, 'polls'])->name('front.polls')->middleware(['auth','verified']);
+Route::get('front/{polled}/{poll}/create', [FrontAnswerController::class, 'create'])->name('front.create')->middleware(['auth','verified']);
+Route::post('front/polledCreate', [FrontAnswerController::class, 'polledCreate'])->name('front.polledCreate')->middleware(['auth','verified']);
+Route::post('front/store/{polled}/{poll}', [FrontAnswerController::class, 'store'])->name('front.store')->middleware(['auth','verified']);
+
 Route::get('users', [UserController::class, 'index'])->name('users');
 Route::get('pollDataTable', [PollDataTableController::class, 'index'])->name('pollDataTable');
 

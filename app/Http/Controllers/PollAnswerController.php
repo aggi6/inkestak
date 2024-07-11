@@ -49,32 +49,32 @@ class PollAnswerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PollAnswer $pollAnswer)
-    {
-        //
-    }
+    // public function show(PollAnswer $pollAnswer)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PollAnswer $pollAnswer)
-    {
-        //
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  */
+    // public function edit(PollAnswer $pollAnswer)
+    // {
+    //     //
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PollAnswer $pollAnswer)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(Request $request, PollAnswer $pollAnswer)
+    // {
+    //     //
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PollAnswer $pollAnswer)
-    {
-        //
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  */
+    // public function destroy(PollAnswer $pollAnswer)
+    // {
+    //     //
+    // }
 }

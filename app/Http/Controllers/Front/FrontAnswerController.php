@@ -19,9 +19,9 @@ class FrontAnswerController extends Controller
     public function polledCreate(Request $request):RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'email|nullable',
-            'jaiotzeData' => 'date|nullable',
+            'jaiotzeData' => 'date_format:Y-m-d|nullable',
             'postalCode' => 'string|max:5|nullable',
             'genre' => 'string|max:20|nullable',
         ]);

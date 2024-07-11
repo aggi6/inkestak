@@ -72,10 +72,10 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Question $question)
-    {
-        //
-    }
+    // public function show(Question $question)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
