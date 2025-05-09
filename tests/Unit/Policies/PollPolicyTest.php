@@ -46,6 +46,17 @@ class PollPolicyTest extends TestCase
         $user= $this->get_non_admin_user();
         $this->assertFalse($this->pollPolicy->update($user));
     }
+    public function test_is_admin_on_delete(): void
+    {
+        $user= $this->get_admin_user();
+
+        $this->assertTrue($this->pollPolicy->update($user));
+    }
+    public function test_is_not_admin_on_delete(): void
+    {
+        $user= $this->get_non_admin_user();
+        $this->assertFalse($this->pollPolicy->update($user));
+    }
     private function get_admin_user():User{
         $user = User::where('id', '=' ,1)->first();
         if (is_null($user)){

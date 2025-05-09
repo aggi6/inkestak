@@ -9,7 +9,7 @@ use App\Models\Question;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UpdateQuestionTest extends TestCase
+class DestroyQuestionTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -49,27 +49,18 @@ class UpdateQuestionTest extends TestCase
         // $viewQuestion = $response->viewData('question');
         // $this->assertEquals($question->id, $viewQuestion->id);
     }
-    public function test_editQuestion_screen_cant_be_rendered_ifNotLogged(): void
-    {
-        auth()->logout();
-
-        $question = Question::factory()->create();
-
-        $response = $this->get(route('questions.edit', ['question'=>$question]));
-
-        $response->assertStatus(500);
-    }
-    public function test_updateQuestion_null(): void
+    public function test_destroyQuestion_null(): void
     {
         $question = Question::factory()->create();
 
-        $response = $this->patch(route('questions.update', ['question'=>$question]), ['question' => null]);
+        $response = $this->delete(route('questions.destroy', ['question'=>$question]), ['question' => null]);
         
         $response->assertStatus(302);
 
-        $response->assertInvalid('question');
-    }
-    public function test_updateQuestion_without(): void
+        $this->assertDatabaseMissing('questions', ['id' => $question->id]);
+        $response->assertRedirect(route('polls.index'));
+}
+    public function test_destroyQuestion_without(): void
     {
         $question = Question::factory()->create();
 
@@ -79,26 +70,15 @@ class UpdateQuestionTest extends TestCase
 
         $response->assertInvalid('question');
     }
-    public function test_updateQuestion_notString(): void
+    public function test_destroyQuestion_notString(): void
     {
         $question = Question::factory()->create();
 
-        $response = $this->patch(route('questions.update', ['question'=>$question]), ['question' => [1]]);
+        $response = $this->delete(route('questions.destroy', ['question'=>$question]), ['question' => [1]]);
 
         $response->assertStatus(302);
-        $response->assertInvalid('question');
-    }
-    public function test_updateQuestion_max255(): void
-    {
-       
-        $question = Question::factory()->create();
-
-        $response = $this->from(route('questions.edit', ['question'=>$question]))
-        ->patch(route('questions.update', ['question'=>$question]), ['question' => Str::random(256)]);
-
-        $response->assertStatus(302);
-        $response->assertInvalid('question');
-        $response->assertRedirect(route('questions.edit', ['question'=>$question]));
+        $this->assertDatabaseMissing('questions', ['id' => $question->id]);
+        $response->assertRedirect(route('polls.index'));
     }
     public function test_updateQuestion_success(): void
     {

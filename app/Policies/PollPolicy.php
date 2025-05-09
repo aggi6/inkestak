@@ -11,18 +11,18 @@ class PollPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
-    {
-        //
-    }
+    // public function viewAny(User $user): bool
+    // {
+    //     //
+    // }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Poll $poll): bool
-    {
-        //
-    }
+    // /**
+    //  * Determine whether the user can view the model.
+    //  */
+    // public function view(User $user, Poll $poll): bool
+    // {
+    //     //
+    // }
 
     /**
      * Determine whether the user can create models.
@@ -51,16 +51,16 @@ class PollPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Poll $poll): bool
-    {
-        //
-    }
+    // public function restore(User $user, Poll $poll): bool
+    // {
+    //     //
+    // }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Poll $poll): bool
-    {
-        //
-    }
+    // /**
+    //  * Determine whether the user can permanently delete the model.
+    //  */
+    // public function forceDelete(User $user, Poll $poll): bool
+    // {
+    //     //
+    // }
 }
