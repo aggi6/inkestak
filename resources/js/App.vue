@@ -33,21 +33,24 @@
         </tr>
       </tbody>
     </table>
-    <br>
     <button @click="erakutsi = !erakutsi">Gehitu dokumentua</button>
+    <br>
+    <br>
+
     <div v-show="erakutsi">
-      <form>
+      <form @submit.prevent="dokumentuaGehitu">
         <label>Izena</label>
-        <input type="text"/>
+        <input type="text" v-model="formData.name" />
         <br>
         <label>Path</label>
-        <input type="text"/>
+        <input type="text" v-model="formData.path" />
         <br>
         <label>Deskargatu</label>
-        <input type="checkbox"/>
+        <input type="checkbox" v-model="formData.can_download" />
         <br>
         <label>Aktibatu</label>
-        <input type="checkbox"/>
+        <input type="checkbox" v-model="formData.active" />
+        <button :disabled="!ahalGehitu">Bidali</button>
       </form>
     </div>
   </div>
@@ -59,6 +62,12 @@ export default {
   data() {
     return {
       erakutsi: false,
+      formData: {
+        name: '',
+        path: '',
+        can_download: false,
+        active: false,
+      },
       documents: [
         {
           id: 1,
@@ -76,7 +85,32 @@ export default {
         }
       ]
     }
-  }
+  },
+  computed: {
+    ahalGehitu() {
+      return (
+        this.formData.name.trim() !== '' && this.formData.path.trim() !== ''
+      );
+    }
+  },
+  methods: {
+    dokumentuaGehitu() {
+      const dokumentuBerria = {
+        id: this.documents.length + 1,
+        ...this.formData,
+      };
+      this.documents.push(dokumentuBerria);
+      this.garbituForm();
+    },
+    garbituForm() {
+      this.formData = {
+        name: '',
+        path: '',
+        can_download: false,
+        active: false,
+      };
+    },
+  },
 }
 </script>
 
