@@ -8,9 +8,9 @@
         </span>
         </td>
         <td>
-        <button v-if="document.can_download">
+        <a v-if="document.can_download" :href="document.path" download>
             <i class="fas fa-download"></i> 
-        </button>
+        </a>
         <span v-else>
             <i class="fas fa-ban"></i> 
         </span>
