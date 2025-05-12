@@ -98,6 +98,9 @@
         };
       },
     },
+    components: {
+      Document,
+    },
   }
 </script>
 
