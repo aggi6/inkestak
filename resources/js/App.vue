@@ -10,7 +10,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Status</th>
-          <th>Actions</th>
+          <th>Download</th>
         </tr>
       </thead>
       <tbody>
