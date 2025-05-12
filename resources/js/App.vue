@@ -41,8 +41,9 @@
 </template>
 
 <script>
-  import Document from './components/Document.vue';
-  
+  import Document from './components/Document.vue'
+  import axios from 'axios'
+
   export default {
     name: 'App',
     data() {
@@ -100,6 +101,11 @@
     },
     components: {
       Document,
+    },
+    mounted() {
+      sendDocuments() {
+        this.axios.post('api/documents', this.document)
+      }
     },
   }
 </script>
