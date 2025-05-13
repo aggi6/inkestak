@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PollAnswerController;
+use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\PollDataTableController;
 use App\Http\Controllers\Front\FrontAnswerController;
 
@@ -49,4 +50,5 @@ Route::post('front/store/{polled}/{poll}', [FrontAnswerController::class, 'store
 Route::get('users', [UserController::class, 'index'])->name('users');
 Route::get('pollDataTable', [PollDataTableController::class, 'index'])->name('pollDataTable');
 
+Route::post('api/documents', [DocumentController::class, 'index']);
 require __DIR__.'/auth.php';
