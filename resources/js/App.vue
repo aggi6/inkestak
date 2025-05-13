@@ -14,23 +14,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="document in documents" :key="document.id">
-          <td>{{ document.id }}</td>
-          <td>{{ document.name }}</td>
-          <td>
-            <span>
-              {{ document.active ? 'Active' : 'Inactive' }}
-            </span>
-          </td>
-          <td>
-            <a v-if="document.can_download" :href="document.path" download>
-              <i class="fas fa-download"></i> 
-            </a>
-            <span v-else>
-             <i class="fas fa-ban"></i> 
-            </span>
-          </td>
-        </tr>
+        <Document v-for="doc in documents" :key="doc.id" :document="doc" />
       </tbody>
     </table>
     <button @click="erakutsi = !erakutsi">Gehitu dokumentua</button>
@@ -57,61 +41,67 @@
 </template>
 
 <script>
-export default {
-  name: 'App',
-  data() {
-    return {
-      erakutsi: false,
-      formData: {
-        name: '',
-        path: '',
-        can_download: false,
-        active: false,
-      },
-      documents: [
-        {
-          id: 1,
-          name: 'Dokumentua 1',
-          path: 'https://pdfobject.com/pdf/sample.pdf',
+  import Document from './components/Document.vue';
+  
+  export default {
+    name: 'App',
+    data() {
+      return {
+        erakutsi: false,
+        formData: {
+          name: '',
+          path: '',
           can_download: false,
-          active: true
+          active: false,
+          
         },
-        {
-          id: 2,
-          name: 'Dokumentua 2',
-          path: 'https://pdfobject.com/pdf/sample.pdf',
-          can_download: true,
-          active: true
-        }
-      ]
-    }
-  },
-  computed: {
-    ahalGehitu() {
-      return (
-        this.formData.name.trim() !== '' && this.formData.path.trim() !== ''
-      );
-    }
-  },
-  methods: {
-    dokumentuaGehitu() {
-      const dokumentuBerria = {
-        id: this.documents.length + 1,
-        ...this.formData,
-      };
-      this.documents.push(dokumentuBerria);
-      this.garbituForm();
+        documents: [
+          {
+            id: 1,
+            name: 'Dokumentua 1',
+            path: 'https://pdfobject.com/pdf/sample.pdf',
+            can_download: false,
+            active: true
+          },
+          {
+            id: 2,
+            name: 'Dokumentua 2',
+            path: 'https://pdfobject.com/pdf/sample.pdf',
+            can_download: true,
+            active: true
+          }
+        ]
+      }
     },
-    garbituForm() {
-      this.formData = {
-        name: '',
-        path: '',
-        can_download: false,
-        active: false,
-      };
+    computed: {
+      ahalGehitu() {
+        return (
+          this.formData.name.trim() !== '' && this.formData.path.trim() !== ''
+        );
+      }
     },
-  },
-}
+    methods: {
+      dokumentuaGehitu() {
+        const dokumentuBerria = {
+          id: this.documents.length + 1,
+          ...this.formData,
+        };
+        this.documents.push(dokumentuBerria);
+        this.garbituForm();
+      },
+      garbituForm() {
+        this.formData = {
+          name: '',
+          path: '',
+          can_download: false,
+          active: false,
+        };
+      },
+    },
+    components: {
+      Document,
+    },
+  }
 </script>
 
 <style>
