@@ -60,22 +60,7 @@
           active: false,
           
         },
-        documents: [
-          {
-            id: 1,
-            name: 'Dokumentua 1',
-            path: 'https://pdfobject.com/pdf/sample.pdf',
-            can_download: false,
-            active: true
-          },
-          {
-            id: 2,
-            name: 'Dokumentua 2',
-            path: 'https://pdfobject.com/pdf/sample.pdf',
-            can_download: true,
-            active: true
-          }
-        ]
+        documents: []
       }
     },
     computed: {
@@ -111,11 +96,23 @@
         } catch (error) {
           console.log('Errorea dokumentuak bidaltzerakoan:', error);
         }
-      }
+      },
+      async jasoDokumentuak(){
+        try {
+          const res = await axios.get('api/documents');
+          this.documents = res.data;
+          console.log('Dokumentuak jaso dira:', res.data);
+        } catch (error){
+          console.error('Errorea dokumentuak jasotzerakoan:', error);
+        }
+      },
     },
     components: {
       Document,
     },
+    mounted() {
+      this.jasoDokumentuak();
+    }, 
   }
 </script>
 

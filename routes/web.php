@@ -51,4 +51,6 @@ Route::get('users', [UserController::class, 'index'])->name('users');
 Route::get('pollDataTable', [PollDataTableController::class, 'index'])->name('pollDataTable');
 
 Route::post('api/documents', [DocumentController::class, 'index']);
+Route::get('api/documents', [DocumentController::class, 'jasoDokumentuak']);
+
 require __DIR__.'/auth.php';
