@@ -41,8 +41,7 @@
 </template>
 
 <script>
-  import Document from './components/Document.vue'
-  import axios from 'axios'
+  import Document from './components/Document.vue';
 
   export default {
     name: 'App',
