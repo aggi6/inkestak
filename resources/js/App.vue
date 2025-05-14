@@ -37,10 +37,6 @@
         <button :disabled="!ahalGehitu">Bidali</button>
       </form>
     </div>
-
-    <br>
-    <br>
-    <button @click="apiDokumentuak">Api dokumentuak</button>
   </div>
 </template>
 
@@ -102,16 +98,6 @@
           active: false,
         };
       },
-      async apiDokumentuak(){
-        try {
-          const res = await axios.post('/api/documents', {
-            documents: this.documents
-          });
-          console.log('Dokumentuak bidali dira:', res.data);
-        } catch (error) {
-          console.log('Errorea dokumentuak bidaltzerakoan:', error);
-        }
-      }
     },
     components: {
       Document,
