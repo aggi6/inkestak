@@ -6,7 +6,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\PollAnswerController;
-use App\Http\Controllers\Api\DocumentController;
 use App\Http\Controllers\PollDataTableController;
 use App\Http\Controllers\Front\FrontAnswerController;
 

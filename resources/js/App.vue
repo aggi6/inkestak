@@ -37,17 +37,12 @@
         <button :disabled="!ahalGehitu">Bidali</button>
       </form>
     </div>
-
-    <br>
-    <br>
-    <button @click="apiDokumentuak">Api dokumentuak</button>
   </div>
 </template>
 
 <script>
-  import Document from './components/Document.vue'
-  import axios from 'axios'
-
+  import Document from './components/Document.vue';
+  
   export default {
     name: 'App',
     data() {
@@ -86,16 +81,6 @@
           can_download: false,
           active: false,
         };
-      },
-      async apiDokumentuak(){
-        try {
-          const res = await axios.post('/api/documents', {
-            documents: this.documents
-          });
-          console.log('Dokumentuak bidali dira:', res.data);
-        } catch (error) {
-          console.log('Errorea dokumentuak bidaltzerakoan:', error);
-        }
       },
       async jasoDokumentuak(){
         try {
