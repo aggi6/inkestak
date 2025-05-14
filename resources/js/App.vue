@@ -17,6 +17,9 @@
         <Document v-for="doc in documents" :key="doc.id" :document="doc" />
       </tbody>
     </table>
+    <div v-show="apiError">
+      <p>{{ apiError }}</p>
+    </div>
     <button @click="erakutsi = !erakutsi">Gehitu dokumentua</button>
     <br>
     <br>
@@ -55,7 +58,8 @@
           active: false,
           
         },
-        documents: []
+        documents: [],
+        apiError: '',
       }
     },
     computed: {
@@ -88,6 +92,7 @@
           this.documents = res.data;
           console.log('Dokumentuak jaso dira:', res.data);
         } catch (error){
+          this.apiError = error;
           console.error('Errorea dokumentuak jasotzerakoan:', error);
         }
       },
