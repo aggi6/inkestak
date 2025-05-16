@@ -18,7 +18,7 @@
       </tbody>
     </table>
     <div v-show="apiError">
-      <p>{{ apiError }}</p>
+      <p style="color: red;">{{ apiError }}</p>
     </div>
     <button @click="erakutsi = !erakutsi">Gehitu dokumentua</button>
     <br>
@@ -92,7 +92,7 @@
           this.documents = res.data;
           console.log('Dokumentuak jaso dira:', res.data);
         } catch (error){
-          this.apiError = error;
+          this.apiError = error.response.data.error;
           console.error('Errorea dokumentuak jasotzerakoan:', error);
         }
       },

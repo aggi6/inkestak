@@ -42,7 +42,7 @@ class DocumentController extends Controller
     {
         return response()->json(
             [
-                'error' => 'Api-ak errore bat bidaltzen du'
+                'error' => 'Arazo bat gertatu da eta une honetan ezin da edukia kargatu'
             ], 
             500
         );
